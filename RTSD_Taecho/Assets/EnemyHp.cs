@@ -11,6 +11,9 @@ public class EnemyHp : MonoBehaviour
     private Enemy enemy;
     private SpriteRenderer spriteRenderer;
 
+    public float maxHp => MaxHp;
+    public float currentHp => CurrentHp;
+
     private void Awake()
     {
         CurrentHp = MaxHp;                    // 현재 체력을 최대 체력과 같게 설정 
@@ -34,7 +37,7 @@ public class EnemyHp : MonoBehaviour
         {
             IsDie = true;
             // 적 캐릭터 사망
-            // enemy.OnDie();  < 나중에 주석처리 빼야하는 부분 현재 Enemy에 OnDie 에 대한 정의가 포함되어 있지 않음 작업 도중에 꺼야해서 커밋해서 올리려고 주석처리함 
+            enemy.OnDie(EnemyDestroyType.Kill);  
         }
     }
 
