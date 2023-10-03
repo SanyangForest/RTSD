@@ -3,11 +3,11 @@ using UnityEngine;
 public class Movement2D : MonoBehaviour
 {
     [SerializeField]
-    private float MoveSpeed = 0.0f;
+    public float MoveSpeed = 0.0f;
     [SerializeField]
     private Vector3 MoveDirection = Vector3.zero;
 
-    public float moveSpeed => MoveSpeed;
+    // public float moveSpeed => MoveSpeed;
 
     private void Update()
     {

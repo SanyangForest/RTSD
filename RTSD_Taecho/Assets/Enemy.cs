@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int gold = 10;                  // 적 사망시 획득 가능한 골드
 
-    public void Setup(Transform[] Waypoints)
+    public void Setup(EnemySpawner enemySpawner, Transform[] Waypoints)
     {
         Movement2D = GetComponent<Movement2D>();
 
@@ -38,13 +38,12 @@ public class Enemy : MonoBehaviour
 
         while (true)
         {
-            // 적 오브젝트 회전
-            transform.Rotate(Vector3.forward * 10);
+            
 
             // 적의 현재위치와 목표위치의 거리가 0.02 * Movement2D.moveSpeed보다 작을 때 if 조건문 실행
             // Movement2D.moveSpeed를 곱해주는 이유는 속도가 빠르면 한 프레임 안에 0.02보다 크게 움직이기 때문에
             // if 조건문에 걸리지 않고 경로를 탈출하는 오브젝트가 발생할 수 있기 때문이다.
-            if (Vector3.Distance(transform.position, Waypoints[CurrentIndex].position) < 0.02f * Movement2D.moveSpeed)
+            if (Vector3.Distance(transform.position, Waypoints[CurrentIndex].position) < 0.02f * Movement2D.MoveSpeed)
             {
                 // 다음 이동 방향 설정
                 NextMoveTo();
@@ -73,11 +72,13 @@ public class Enemy : MonoBehaviour
             gold = 0;
             // 적 오브젝트 삭제
             OnDie(EnemyDestroyType.Arrive);
-        }
-    }
+           
 
+        }
+
+    }
     public void OnDie(EnemyDestroyType type)
-    { 
+    {
         enemySpawner.DestroyEnemy(type, this, gold);
     }
- } 
+} 

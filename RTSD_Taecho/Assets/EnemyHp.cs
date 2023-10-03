@@ -32,12 +32,15 @@ public class EnemyHp : MonoBehaviour
         StopCoroutine("HitAlphaAnimation");
         StartCoroutine("HitAlphaAnimation");
 
+        Debug.Log("HP-1");
+
         // 적 체력이 0이하 = 적 캐릭터 사망
         if (CurrentHp <= 0)
         {
             IsDie = true;
             // 적 캐릭터 사망
             enemy.OnDie(EnemyDestroyType.Kill);  
+
         }
     }
 
