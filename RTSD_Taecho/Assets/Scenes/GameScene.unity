@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 20
+  maxHp: 50
 --- !u!58 &329696056
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 60
+  maxHp: 80
 --- !u!4 &893862396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9078856229873225885, guid: b9eb5f2a7e5fc43459d0f6981f888d21, type: 3}
@@ -3392,8 +3392,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1217.9598, y: 0}
+  m_SizeDelta: {x: 2435.921, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1199133327
 MonoBehaviour:
@@ -3448,6 +3448,10 @@ PrefabInstance:
     - target: {fileID: 877644596796847395, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
       propertyPath: MoveSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 877644596796847395, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
+      propertyPath: moveSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3657800631526220901, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
       propertyPath: m_RootOrder
@@ -3560,7 +3564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 60
+  maxHp: 80
 --- !u!1001 &1261041998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3976,6 +3980,10 @@ PrefabInstance:
       propertyPath: MoveSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 877644596796847395, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3657800631526220901, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -4087,7 +4095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 40
+  maxHp: 50
 --- !u!1 &1864077663
 GameObject:
   m_ObjectHideFlags: 0
@@ -4162,6 +4170,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - spawnTime: 1
+    maxEnemyCount: 10
+    enemyPrefabs:
+    - {fileID: 329696046}
+    - {fileID: 1814189591}
+    - {fileID: 1246641289}
+  - spawnTime: 0.7
+    maxEnemyCount: 20
+    enemyPrefabs:
+    - {fileID: 329696046}
+    - {fileID: 1814189591}
+    - {fileID: 1246641289}
+    - {fileID: 1882538711}
+  - spawnTime: 0.4
     maxEnemyCount: 20
     enemyPrefabs:
     - {fileID: 329696046}
@@ -4169,10 +4190,12 @@ MonoBehaviour:
     - {fileID: 1246641289}
     - {fileID: 1882538711}
     - {fileID: 886790563}
-  - spawnTime: 1
-    maxEnemyCount: 20
+  - spawnTime: 0.1
+    maxEnemyCount: 30
     enemyPrefabs:
-    - {fileID: 1814189591}
+    - {fileID: 1246641289}
+    - {fileID: 1882538711}
+    - {fileID: 886790563}
   enemySpawner: {fileID: 1864077664}
 --- !u!1001 &1882538710
 PrefabInstance:
@@ -4189,6 +4212,10 @@ PrefabInstance:
     - target: {fileID: 877644596796847395, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
       propertyPath: MoveSpeed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 877644596796847395, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
+      propertyPath: moveSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3657800631526220901, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
       propertyPath: m_RootOrder
@@ -4301,7 +4328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 80
+  maxHp: 100
 --- !u!4 &1990438558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9078856229873225885, guid: b9eb5f2a7e5fc43459d0f6981f888d21, type: 3}
@@ -4622,6 +4649,10 @@ PrefabInstance:
     - target: {fileID: 877644596796847395, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
       propertyPath: MoveSpeed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 877644596796847395, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
+      propertyPath: moveSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3657800631526220901, guid: a9654518dc9a924408073e9c5a3cbff1, type: 3}
       propertyPath: m_RootOrder
