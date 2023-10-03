@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7656279318557852970}
   - component: {fileID: 1234507943097490377}
   - component: {fileID: 6872170094244480952}
+  - component: {fileID: 2621864371989852273}
   m_Layer: 0
   m_Name: Circle 1
   m_TagString: T_L_1
@@ -27,7 +28,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7647817952842743476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.10261639}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -151,5 +152,22 @@ MonoBehaviour:
   detectionRadius: 5
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   rotateSpeed: 2
+--- !u!114 &2621864371989852273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647817952842743476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c0b399751c68241b729c45c5442de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerTemplate: {fileID: 11400000, guid: 53a300b891dc559448734efcd996f2fe, type: 2}
+  firePoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  fireRate: 2
+  damage: 10
