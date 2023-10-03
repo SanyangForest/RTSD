@@ -9,6 +9,8 @@ public class CreatRandomTower : MonoBehaviour
     private float spawnYPosition = 0f; // 타워의 초기 y 좌표
     private GameObject clickedTower; // 클릭된 타워를 기억하기 위한 변수
 
+    private bool isOnTowerButton = false;
+
 
     private void Update()
     {
@@ -26,8 +28,14 @@ public class CreatRandomTower : MonoBehaviour
         }
     }
 
+    public void ReadyToSpawnTower()
+    {
+        // 타워 건설 여부 확인
 
-    private void SpawnTower()
+        isOnTowerButton = true;
+    }
+
+    public void SpawnTower()
     {
         // 랜덤한 타워를 생성
         int randomIndex = Random.Range(0, towerPrefabs.Length);
