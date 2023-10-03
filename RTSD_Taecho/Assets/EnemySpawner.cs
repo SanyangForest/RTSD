@@ -6,6 +6,7 @@ using static WaveSystem;
 public class EnemySpawner : MonoBehaviour
 {
     //[SerializeField]
+
     //private GameObject EnemyPrefabs; // 적 프리팹
     //[SerializeField]
     //private float SpawnTime; // 적 생성 주기
@@ -19,15 +20,19 @@ public class EnemySpawner : MonoBehaviour
     private int currentEnemyCount;		// 현재 웨이브에 남아있는 적 숫자 (웨이브 시작시 max로 설정, 적 사망 시 -1)
     private List<Enemy> enemyList; // 현재 맵에 존재하는 모든 적의 정보
 
+
     public int CurrentEnemyCount => currentEnemyCount;
     public List<Enemy> EnemyList => enemyList;
-     
+
     // 적의 생성과 삭제는   EnemySpawner 에서 하기 때문에 Set 은 필요 없다.
+
 
     private void Awake()
     {
         enemyList = new List<Enemy>();
+
         // 적 생성 코루틴 함수 생성
+
         //StartCoroutine("SpawnEnemy");
     }
 
@@ -38,11 +43,13 @@ public class EnemySpawner : MonoBehaviour
         // 현재 웨이브의 최대 적 숫자를 저장
         currentEnemyCount = currentWave.maxEnemyCount;
         // 현재 웨이브 시작
+
         StartCoroutine("SpawnEnemy");
     }
 
     private IEnumerator SpawnEnemy()
     {
+
         // 현재 웨이브에서 생성한 적 숫자
         int spawnEnemyCount = 0;
         // 현재 웨이브에서 생성되어야 하는 적의 숫자만큼 적을 생성하고 코루틴 종료
@@ -77,6 +84,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void DestroyEnemy(EnemyDestroyType type, Enemy enemy,int gold)
     {
+
         // 적이 목표지점까지 도착했을 때 
         if (type == EnemyDestroyType.Arrive)
         {
