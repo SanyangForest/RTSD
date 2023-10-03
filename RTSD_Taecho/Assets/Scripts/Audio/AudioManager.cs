@@ -19,6 +19,18 @@ public class AudioManager : MonoBehaviour
     AudioSource[] sfxPlayers;  // 효과음을 재생할 오디오 소스들 (효과음은 많으니 배열로)
     int channelIndex; // 현재 재생하고 있는 채널의 인덱스
 
+    public enum Sfx  // 여러가지 효과음들 지정 - 현재는 임시 효과음이므로 변경할 필요 있음
+    {
+        Dead,
+        Hit,
+        LevelUp = 3,
+        Lose,
+        Melle,
+        Range = 7,
+        Select,
+        Win
+    }
+
 
     private void Awake()
     {
@@ -49,4 +61,22 @@ public class AudioManager : MonoBehaviour
             sfxPlayers[index].volume = sfxVolume;
         }
     }
+
+    public void PlaySfx(Sfx sfx)
+    {
+        for(int index = 0; index < sfxPlayers.Length;index++)
+        {
+           int loopIndex = (index + channelIndex) % sfxPlayers.Length; // 효과음의 인덱스가 끝나면 처음으로 되돌리기 위한 코드. 길이로 나눈 나머지를 사용하는 이유는 인덱스 초과를 막기 위해서
+
+            if (sfxPlayers[loopIndex].isPlaying)  // 효과음이 중간에 끊기는 것을 방지하기 위해 효과음이 실행중이면 for문을 넘긴다
+                continue;
+
+            channelIndex = loopIndex;
+            sfxPlayers[loopIndex].clip = sfxClips[(int)sfx];
+            sfxPlayers[loopIndex].Play();
+            break; 
+        }
+    }
+
+    // 이제 사용할 곳에서 AudioMAnager.instance.PlaySfx(AudioManager.Sfx.Select); 와 같은 식으로 사용하면 된다.
 }
