@@ -14,8 +14,15 @@ public class Enemy : MonoBehaviour
     private EnemySpawner enemySpawner;      // 적의 삭제를 본인이 하지 않고 EnemySpawner에 알려서 삭제 
     [SerializeField]
     private int gold = 10;                  // 적 사망시 획득 가능한 골드
+    public int startingHP = 100; // 시작 체력
+    private int currentHP; // 현재 체력
 
-    public void Setup(EnemySpawner enemySpawner, Transform[] Waypoints)
+    private void Start()
+    {
+        currentHP = startingHP; // 시작할 때 현재 체력을 최대 체력으로 설정
+    }
+
+    public void Setup(Transform[] Waypoints)
     {
         Movement2D = GetComponent<Movement2D>();
 
@@ -81,4 +88,25 @@ public class Enemy : MonoBehaviour
     {
         enemySpawner.DestroyEnemy(type, this, gold);
     }
-} 
+    public void TakeDamage(int damage)
+    {
+        currentHP -= damage; // 적의 체력에서 받은 피해만큼 감소
+
+        // 적의 체력이 0 이하로 떨어지면 사망 처리
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            Debug.Log("적 체력: " + currentHP); // 체력이 감소할 때 로그 출력
+        }
+    }
+    private void Die()
+    {
+        // 여기에서 적의 사망 동작을 구현합니다.
+
+        // 적 오브젝트 삭제
+        Destroy(gameObject);
+    }
+ } 
