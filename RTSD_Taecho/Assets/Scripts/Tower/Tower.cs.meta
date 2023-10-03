@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 25c0b399751c68241b729c45c5442de8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - towerTemplate: {fileID: 11400000, guid: 53a300b891dc559448734efcd996f2fe, type: 2}
+  - firePoint: {instanceID: 0}
+  - bulletPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

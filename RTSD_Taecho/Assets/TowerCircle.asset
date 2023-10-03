@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a136f9a646307140a3119ed1914f80f, type: 3}
+  m_Name: TowerCircle
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 7647817952842743476, guid: 1a070e441e5a46c43a96fa91a5dc9159, type: 3}
+  weapon:
+  - sprite: {fileID: 21300000, guid: f743ae65363a58b4bb63d471b4978b1a, type: 3}
+    damage: 1
+    rate: 0.5
+    range: 2
+    cost: 50
+  - sprite: {fileID: 21300000, guid: a35b151eea1c2de43a63764c264c1d01, type: 3}
+    damage: 1.5
+    rate: 0.4
+    range: 2.3
+    cost: 100
+  - sprite: {fileID: 21300000, guid: eef18d33c7eb7c64cb92f40f54a334b0, type: 3}
+    damage: 2
+    rate: 0.3
+    range: 2.5
+    cost: 150
