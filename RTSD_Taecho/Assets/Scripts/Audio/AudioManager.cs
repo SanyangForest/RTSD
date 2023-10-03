@@ -78,5 +78,5 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // 이제 사용할 곳에서 AudioMAnager.instance.PlaySfx(AudioManager.Sfx.Select); 와 같은 식으로 사용하면 된다.
+    // 이제 사용할 곳에서 AudioManager.instance.PlaySfx(AudioManager.Sfx.Select); 와 같은 식으로 사용하면 된다.
 }

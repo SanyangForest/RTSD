@@ -42,7 +42,7 @@ public class CreatRandomTower : MonoBehaviour
 
         // 현재 타워를 업데이트하고 spawnYPosition 증가
         currentTower = newTower;
-        spawnYPosition += 1f; // 다음 타워를 위해 y 좌표를 1 증가
+        spawnYPosition += 1f; // 다음 타워를 위해 y 좌표를 1 증가 - 여기서 타워 배치
     }
     private void HandleClick()
     {
