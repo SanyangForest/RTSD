@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
             Enemy enemy = clone.GetComponent<Enemy>();  // 방금 생성된 적의 Enemy 컴포넌트
 
             // this는 나 자신 (자신의 EnemySpawner 정보)
-            enemy.Setup(wayPoints);                     // wayPoint 정보를 매개변수 Setup() 호출
+            enemy.Setup(this, wayPoints);                     // wayPoint 정보를 매개변수 Setup() 호출
             enemyList.Add(enemy);                             // 리스트에 방금 생성된 적 정보 저장
 
             // 현재 웨이브에서 생성한 적의 숫자 +1 

@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 20
+  maxHp: 0
 --- !u!58 &329696056
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2094,10 +2094,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Build
+  m_text: "\uD0C0\uC6CC \uAC74\uC124\n20G"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fb4c16463bd074449a162f3956c048e9, type: 2}
+  m_sharedMaterial: {fileID: -5659502057088484751, guid: fb4c16463bd074449a162f3956c048e9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2121,8 +2121,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3308,7 +3308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 60
+  maxHp: 0
 --- !u!4 &893862396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9078856229873225885, guid: b9eb5f2a7e5fc43459d0f6981f888d21, type: 3}
@@ -5736,13 +5736,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TowerSpawner, Assembly-CSharp
-        m_MethodName: SpawnTower
-        m_Mode: 2
+      - m_Target: {fileID: 1092290530}
+        m_TargetAssemblyTypeName: CreatRandomTower, Assembly-CSharp
+        m_MethodName: ReadyToSpawnTower
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5900,6 +5900,8 @@ MonoBehaviour:
   - {fileID: 7647817952842743476, guid: 1a070e441e5a46c43a96fa91a5dc9159, type: 3}
   - {fileID: 7647817952842743476, guid: c8ffb7205c2e50848a66f0ea8bc62bd0, type: 3}
   - {fileID: 7647817952842743476, guid: 76caa79559b8690498649075cc636f00, type: 3}
+  gold: {fileID: 810619541}
+  towerTemplate: {fileID: 0}
 --- !u!1001 &1107648514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6318,7 +6320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1145347833}
-  - component: {fileID: 1145347832}
+  - component: {fileID: 1145347834}
   m_Layer: 0
   m_Name: ObjectDetector
   m_TagString: Untagged
@@ -6326,19 +6328,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1145347832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145347831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c83828bc6c0a4344baebcd50aecfe428, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerSpawner: {fileID: 0}
 --- !u!4 &1145347833
 Transform:
   m_ObjectHideFlags: 0
@@ -6354,6 +6343,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145347834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145347831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83828bc6c0a4344baebcd50aecfe428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerSpawner: {fileID: 1092290530}
 --- !u!1 &1199133325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6689,7 +6691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 60
+  maxHp: 0
 --- !u!1001 &1261041998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7151,8 +7153,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fb4c16463bd074449a162f3956c048e9, type: 2}
+  m_sharedMaterial: {fileID: -5659502057088484751, guid: fb4c16463bd074449a162f3956c048e9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8668,7 +8670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 40
+  maxHp: 0
 --- !u!1 &1864077663
 GameObject:
   m_ObjectHideFlags: 0
@@ -8948,7 +8950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae86675eae69ddb4c84fa802e6835290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 80
+  maxHp: 0
 --- !u!1001 &1962615547
 PrefabInstance:
   m_ObjectHideFlags: 0
