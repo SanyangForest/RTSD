@@ -6,93 +6,93 @@ using static WaveSystem;
 public class EnemySpawner : MonoBehaviour
 {
     //[SerializeField]
-    //private GameObject EnemyPrefabs; // Àû ÇÁ¸®ÆÕ
+    //private GameObject EnemyPrefabs; // ì  í”„ë¦¬íŒ¹
     //[SerializeField]
-    //private float SpawnTime; // Àû »ı¼º ÁÖ±â
+    //private float SpawnTime; // ì  ìƒì„± ì£¼ê¸°
     [SerializeField]
-    private Transform[] wayPoints; // ÇöÀç ½ºÅ×ÀÌÁöÀÇ ÀÌµ¿ °æ·Î
+    private Transform[] wayPoints; // í˜„ì¬ ìŠ¤í…Œì´ì§€ì˜ ì´ë™ ê²½ë¡œ
     [SerializeField]
-    private PlayerHp playerHp;     // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â ÄÄÆ÷³ÍÆ®
+    private PlayerHp playerHp;     // í”Œë ˆì´ì–´ì˜ ì²´ë ¥ ì»´í¬ë„ŒíŠ¸
     [SerializeField]
-    private PlayerGold playerGold; // ÇÃ·¹ÀÌ¾îÀÇ °ñµå ÄÄÆ÷³ÍÆ® 
-    private Wave currentWave;      // ÇöÀç ¿şÀÌºê Á¤º¸
-    private int currentEnemyCount;		// ÇöÀç ¿şÀÌºê¿¡ ³²¾ÆÀÖ´Â Àû ¼ıÀÚ (¿şÀÌºê ½ÃÀÛ½Ã max·Î ¼³Á¤, Àû »ç¸Á ½Ã -1)
-    private List<Enemy> enemyList; // ÇöÀç ¸Ê¿¡ Á¸ÀçÇÏ´Â ¸ğµç ÀûÀÇ Á¤º¸
+    private PlayerGold playerGold; // í”Œë ˆì´ì–´ì˜ ê³¨ë“œ ì»´í¬ë„ŒíŠ¸ 
+    private Wave currentWave;      // í˜„ì¬ ì›¨ì´ë¸Œ ì •ë³´
+    private int currentEnemyCount;		// í˜„ì¬ ì›¨ì´ë¸Œì— ë‚¨ì•„ìˆëŠ” ì  ìˆ«ì (ì›¨ì´ë¸Œ ì‹œì‘ì‹œ maxë¡œ ì„¤ì •, ì  ì‚¬ë§ ì‹œ -1)
+    private List<Enemy> enemyList; // í˜„ì¬ ë§µì— ì¡´ì¬í•˜ëŠ” ëª¨ë“  ì ì˜ ì •ë³´
 
     public int CurrentEnemyCount => currentEnemyCount;
     public List<Enemy> EnemyList => enemyList;
      
-    // ÀûÀÇ »ı¼º°ú »èÁ¦´Â   EnemySpawner ¿¡¼­ ÇÏ±â ¶§¹®¿¡ Set Àº ÇÊ¿ä ¾ø´Ù.
+    // ì ì˜ ìƒì„±ê³¼ ì‚­ì œëŠ”   EnemySpawner ì—ì„œ í•˜ê¸° ë•Œë¬¸ì— Set ì€ í•„ìš” ì—†ë‹¤.
 
     private void Awake()
     {
         enemyList = new List<Enemy>();
-        // Àû »ı¼º ÄÚ·çÆ¾ ÇÔ¼ö »ı¼º
+        // ì  ìƒì„± ì½”ë£¨í‹´ í•¨ìˆ˜ ìƒì„±
         //StartCoroutine("SpawnEnemy");
     }
 
     public void StartWave(Wave wave)
     {
-        // ¸Å°³º¯¼ö·Î ¹Ş¾Æ¿Â ¿şÀÌºê Á¤º¸ ÀúÀå
+        // ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì•„ì˜¨ ì›¨ì´ë¸Œ ì •ë³´ ì €ì¥
         currentWave = wave;
-        // ÇöÀç ¿şÀÌºêÀÇ ÃÖ´ë Àû ¼ıÀÚ¸¦ ÀúÀå
+        // í˜„ì¬ ì›¨ì´ë¸Œì˜ ìµœëŒ€ ì  ìˆ«ìë¥¼ ì €ì¥
         currentEnemyCount = currentWave.maxEnemyCount;
-        // ÇöÀç ¿şÀÌºê ½ÃÀÛ
+        // í˜„ì¬ ì›¨ì´ë¸Œ ì‹œì‘
         StartCoroutine("SpawnEnemy");
     }
 
     private IEnumerator SpawnEnemy()
     {
-        // ÇöÀç ¿şÀÌºê¿¡¼­ »ı¼ºÇÑ Àû ¼ıÀÚ
+        // í˜„ì¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±í•œ ì  ìˆ«ì
         int spawnEnemyCount = 0;
-        // ÇöÀç ¿şÀÌºê¿¡¼­ »ı¼ºµÇ¾î¾ß ÇÏ´Â ÀûÀÇ ¼ıÀÚ¸¸Å­ ÀûÀ» »ı¼ºÇÏ°í ÄÚ·çÆ¾ Á¾·á
+        // í˜„ì¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±ë˜ì–´ì•¼ í•˜ëŠ” ì ì˜ ìˆ«ìë§Œí¼ ì ì„ ìƒì„±í•˜ê³  ì½”ë£¨í‹´ ì¢…ë£Œ
         while (spawnEnemyCount < currentWave.maxEnemyCount)
         {
-            // ¿şÀÌºê¿¡ µîÀåÇÏ´Â ÀûÀÇ Á¾·ù°¡ ¿©·¯ Á¾·ùÀÏ ¶§ ÀÓÀÇÀÇ ÀûÀÌ µîÀåÇÏµµ·Ï ¼³Á¤ÇÏ°í, Àû ¿ÀºêÁ§Æ® »ı¼º
+            // ì›¨ì´ë¸Œì— ë“±ì¥í•˜ëŠ” ì ì˜ ì¢…ë¥˜ê°€ ì—¬ëŸ¬ ì¢…ë¥˜ì¼ ë•Œ ì„ì˜ì˜ ì ì´ ë“±ì¥í•˜ë„ë¡ ì„¤ì •í•˜ê³ , ì  ì˜¤ë¸Œì íŠ¸ ìƒì„±
             int enemyIndex = Random.Range(0, currentWave.enemyPrefabs.Length);
             GameObject clone = Instantiate(currentWave.enemyPrefabs[enemyIndex]);
-            Enemy enemy = clone.GetComponent<Enemy>();  // ¹æ±İ »ı¼ºµÈ ÀûÀÇ Enemy ÄÄÆ÷³ÍÆ®
+            Enemy enemy = clone.GetComponent<Enemy>();  // ë°©ê¸ˆ ìƒì„±ëœ ì ì˜ Enemy ì»´í¬ë„ŒíŠ¸
 
-            // this´Â ³ª ÀÚ½Å (ÀÚ½ÅÀÇ EnemySpawner Á¤º¸)
-            enemy.Setup(this,wayPoints);                     // wayPoint Á¤º¸¸¦ ¸Å°³º¯¼ö Setup() È£Ãâ
-            enemyList.Add(enemy);                             // ¸®½ºÆ®¿¡ ¹æ±İ »ı¼ºµÈ Àû Á¤º¸ ÀúÀå
+            // thisëŠ” ë‚˜ ìì‹  (ìì‹ ì˜ EnemySpawner ì •ë³´)
+            enemy.Setup(this,wayPoints);                     // wayPoint ì •ë³´ë¥¼ ë§¤ê°œë³€ìˆ˜ Setup() í˜¸ì¶œ
+            enemyList.Add(enemy);                             // ë¦¬ìŠ¤íŠ¸ì— ë°©ê¸ˆ ìƒì„±ëœ ì  ì •ë³´ ì €ì¥
 
-            // ÇöÀç ¿şÀÌºê¿¡¼­ »ı¼ºÇÑ ÀûÀÇ ¼ıÀÚ +1 
+            // í˜„ì¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±í•œ ì ì˜ ìˆ«ì +1 
             spawnEnemyCount++;
-            // °¢ ¿şÀÌºê¸¶´Ù spawnTimeÀÌ ´Ù¸¦ ¼ö ÀÖ±â ¶§¹®¿¡ ÇöÀç ¿şÀÌºê currentWaveÀÇ spawnTime »ç¿ë
+            // ê° ì›¨ì´ë¸Œë§ˆë‹¤ spawnTimeì´ ë‹¤ë¥¼ ìˆ˜ ìˆê¸° ë•Œë¬¸ì— í˜„ì¬ ì›¨ì´ë¸Œ currentWaveì˜ spawnTime ì‚¬ìš©
             yield return new WaitForSeconds(currentWave.spawnTime);
-            // SpawnTime ½Ã°£ µ¿¾È ´ë±â
+            // SpawnTime ì‹œê°„ ë™ì•ˆ ëŒ€ê¸°
         }
 
         //while (true)
         //{
-        //    //GameObject clone = Instantiate (EnemyPrefabs);            // Àû ¿ÀºêÁ§Æ® »ı¼º
-        //    //Enemy enemy = clone.GetComponent<Enemy>();                // ¹æ±İ »ı¼ºµÈ ÀûÀÇ Enemy ÄÄÆ÷³ÍÆ®
+        //    //GameObject clone = Instantiate (EnemyPrefabs);            // ì  ì˜¤ë¸Œì íŠ¸ ìƒì„±
+        //    //Enemy enemy = clone.GetComponent<Enemy>();                // ë°©ê¸ˆ ìƒì„±ëœ ì ì˜ Enemy ì»´í¬ë„ŒíŠ¸
 
-        //    //enemy.Setup(WayPoints);                                   // WayPoint Á¤º¸¸¦ ¸Å°³º¯¼ö·Î Setup() È£Ãâ
+        //    //enemy.Setup(WayPoints);                                   // WayPoint ì •ë³´ë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ Setup() í˜¸ì¶œ
 
-        //    //yield return new WaitForSeconds(SpawnTime);               // SpawnTime ½Ã°£ µ¿¾È ´ë±â
+        //    //yield return new WaitForSeconds(SpawnTime);               // SpawnTime ì‹œê°„ ë™ì•ˆ ëŒ€ê¸°
         //}
     }
 
     public void DestroyEnemy(EnemyDestroyType type, Enemy enemy,int gold)
     {
-        // ÀûÀÌ ¸ñÇ¥ÁöÁ¡±îÁö µµÂøÇßÀ» ¶§ 
+        // ì ì´ ëª©í‘œì§€ì ê¹Œì§€ ë„ì°©í–ˆì„ ë•Œ 
         if (type == EnemyDestroyType.Arrive)
         {
-            // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â -1 
+            // í”Œë ˆì´ì–´ì˜ ì²´ë ¥ -1 
             playerHp.TakeDamage(1);
         }
-        // ÀûÀÌ ÇÃ·¹ÀÌ¾îÀÇ ¹ß»çÃ¼¿¡¼­ »ç¸ÁÇßÀ» ¶§
+        // ì ì´ í”Œë ˆì´ì–´ì˜ ë°œì‚¬ì²´ì—ì„œ ì‚¬ë§í–ˆì„ ë•Œ
         else if (type == EnemyDestroyType.Kill)
         {
-            // ÀûÀÇ Á¾·ù¿¡ µû¶ó »ç¸Á ½Ã °ñµå È¹µæ
+            // ì ì˜ ì¢…ë¥˜ì— ë”°ë¼ ì‚¬ë§ ì‹œ ê³¨ë“œ íšë“
             playerGold.CurrentGold += gold;
         }
 
-        // ¸®½ºÆ®¿¡¼­ »ç¸ÁÇÏ´Â Àû Á¤º¸ »èÁ¦
+        // ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚¬ë§í•˜ëŠ” ì  ì •ë³´ ì‚­ì œ
         enemyList.Remove(enemy);
-        // Àû ¿ÀºêÁ§Æ® »èÁ¦
+        // ì  ì˜¤ë¸Œì íŠ¸ ì‚­ì œ
         Destroy(enemy.gameObject);
     }
 

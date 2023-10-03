@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 10
+  startingHP: 100
 --- !u!114 &877644596796847395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,5 +112,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e7dc0b75cf49d4ebb906dde9c563ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 5
-  MoveDirection: {x: 0, y: 0, z: 0}
+  moveSpeed: 1
+  moveDirection: {x: 0, y: 0, z: 0}
