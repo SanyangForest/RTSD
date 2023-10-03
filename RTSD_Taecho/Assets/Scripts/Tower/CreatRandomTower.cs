@@ -36,7 +36,7 @@ public class CreatRandomTower : MonoBehaviour
     public void ReadyToSpawnTower()
     {
         
-        if (/*towerTemplate.weapon[0].cost*/ 20 > gold.CurrentGold)
+        if (20 > gold.CurrentGold) // 굳이 towerTemplate.weapon[0].cost 안써도 됨. 어차피 20G 고정임
         {
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
             Debug.Log("돈 부족");
