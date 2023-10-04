@@ -85,6 +85,7 @@ public class CreatRandomTower : MonoBehaviour
         // 랜덤한 타워를 생성
         int randomIndex = Random.Range(0, towerPrefabs.Length);
         GameObject selectedTowerPrefab = towerPrefabs[randomIndex];
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
 
         isOnBuild = false; // 설치됐으면 다시 false로 바꿔서 버튼을 클릭해야 설치되게 함
 
