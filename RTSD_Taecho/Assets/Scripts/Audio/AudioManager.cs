@@ -36,6 +36,7 @@ public class AudioManager : MonoBehaviour
     {
         instance = this;
         Init();
+        PlayBgm(true);
     }
 
     private void Init()
@@ -61,7 +62,17 @@ public class AudioManager : MonoBehaviour
             sfxPlayers[index].volume = sfxVolume;
         }
     }
-
+    public void PlayBgm(bool isPlay)
+    {
+        if(isPlay)
+        {
+            bgmPlayer.Play();
+        }
+        else
+        {
+            bgmPlayer.Stop();
+        }
+    }
     public void PlaySfx(Sfx sfx)
     {
         for(int index = 0; index < sfxPlayers.Length;index++)
