@@ -11,14 +11,27 @@ public class Tower : MonoBehaviour
     public float fireRate = 2f; // 발사 간격 (초 단위)
     public int damage = 10; // 총알 데미지
 
-    private int level = 0;
-    private PlayerGold playerGold;
-    private SpriteRenderer spriteRenderer;
-
     private void Start()
     {
         // 코루틴을 사용하여 총알 자동 발사
         StartCoroutine(Shoot());
+        DetectTowertoEnemy detectTowertoEnemy = GetComponent<DetectTowertoEnemy>();
+        if (detectTowertoEnemy != null)
+        {
+            // 공격 범위 값을 가져와서 사용
+            float attackRange = detectTowertoEnemy.detectionRadius; // detectionRadius를 사용
+
+            // 공격 범위에 따른 설정 등을 수행
+            // 예: 공격 범위를 Debug.Log로 출력
+            Debug.Log("Tower's Attack Range: " + attackRange);
+            string towerTag = gameObject.tag;
+            int towerLevel;
+            if (int.TryParse(towerTag.Replace("T_L_", ""), out towerLevel))
+            {
+                // 타워 레벨에 따라 데미지 증가
+                damage += towerLevel * 20;
+            }
+        }
     }
 
     private IEnumerator Shoot()
@@ -35,8 +48,27 @@ public class Tower : MonoBehaviour
     private void FireBullet()
     {
         // 가장 가까운 "Enemy" 태그를 가진 오브젝트를 찾음
-        GameObject closestEnemy = FindClosestEnemy();
+        DetectTowertoEnemy detectTowertoEnemy = GetComponent<DetectTowertoEnemy>();
+    
+        // "Enemy" 태그를 가진 모든 적을 찾습니다.
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
 
+        foreach (GameObject enemy in enemies)
+        {
+            // 타워와 적 간의 거리를 계산합니다.
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance <= detectTowertoEnemy.detectionRadius) // detectionRadius를 사용
+            {
+                // 공격 범위 내에 있는 적 중에서 가장 가까운 적을 찾습니다.
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy;
+                }
+            }
+        }
         if (closestEnemy != null)
         {
             // 총알을 발사 지점에서 생성
@@ -53,11 +85,11 @@ public class Tower : MonoBehaviour
             bulletComponent.Seek(closestEnemy.transform);
 
             // 발사 정보 로그 출력
-            Debug.Log("Bullet fired at: " + closestEnemy.name);
+            Debug.Log("발사 한 대상 : " + closestEnemy.name);
         }
         else
         {
-            Debug.Log("No target to shoot at.");
+            Debug.Log("공격 범위 내에 대상이 없습니다.");
         }
     }
 
@@ -78,19 +110,5 @@ public class Tower : MonoBehaviour
         }
 
         return closestEnemy;
-    }
-
-    public bool Upgrade()
-    {
-        if (playerGold.CurrentGold < towerTemplate.weapon[level + 1].cost)
-        {
-            return false;
-        }
-
-        level++;
-        spriteRenderer.sprite = towerTemplate.weapon[level].sprite;
-        playerGold.CurrentGold -= towerTemplate.weapon[level].cost;
-
-        return true;
     }
 }

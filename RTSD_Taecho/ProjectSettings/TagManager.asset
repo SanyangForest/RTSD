@@ -10,6 +10,7 @@ TagManager:
   - T_L_3
   - T_L_4
   - T_L_5
+  - Tile
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 

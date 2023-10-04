@@ -1,20 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CreatRandomTower : MonoBehaviour
 {
     public GameObject[] towerPrefabs; // 다양한 타워 프리팹을 저장할 배열
     private GameObject currentTower; // 현재 생성된 타워를 저장할 변수
-    private float spawnYPosition = 0f; // 타워의 초기 y 좌표
+    //private float spawnYPosition = 0f; // 타워의 초기 y 좌표
     private GameObject clickedTower; // 클릭된 타워를 기억하기 위한 변수
+
+
+    [SerializeField]
+    private SystemTextViewer systemTextViewer;
+    [SerializeField] PlayerGold gold;
+    [SerializeField] TowerTemplate towerTemplate;
+
+    private int level = 0;
+    private PlayerGold playerGold;
+    private SpriteRenderer spriteRenderer;
+
+    private bool isOnBuild = false;
+    private GameObject followTowerImage = null;
 
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SpawnTower();
+            ReadyToSpawnTower();
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
@@ -26,25 +40,85 @@ public class CreatRandomTower : MonoBehaviour
         }
     }
 
-
-    private void SpawnTower()
+    public void ReadyToSpawnTower()
     {
+        if (isOnBuild == true)  // 버튼을 중복으로 누르지 못하게 막는 장치
+        {
+            return;
+        }
+
+        if (20 > gold.CurrentGold) // 굳이 towerTemplate.weapon[0].cost 안써도 됨. 어차피 20G 고정임
+        {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
+            systemTextViewer.PrintText(SystemType.Money);
+            Debug.Log("돈 부족");
+            return;
+        }
+        Debug.Log("건설 가능");
+        isOnBuild = true;
+
+        // 마우스 따라다니는 이미지 생성
+        followTowerImage = Instantiate(towerTemplate.followImage);
+
+        // 타워 건설 취소 코루틴 시작
+        StartCoroutine("OnTowerCancleSystem");
+    }
+
+    public void SpawnTower(Transform tileTransform)
+    {
+        CheckDuplication check = tileTransform.GetComponent<CheckDuplication>();
+
+        if(isOnBuild == false) // 타워 건설 버튼을 누를 때만 건설 가능
+        {
+            Debug.Log("타워 건설 버튼을 눌러주십시오");
+            return;
+        }
+
+        if(check.IsBuildTower == true)  // 중복 체크
+        {
+            Debug.Log("이미 타워가 설치된 타일");
+            return;
+        }
+
+        check.IsBuildTower = true;
+
         // 랜덤한 타워를 생성
         int randomIndex = Random.Range(0, towerPrefabs.Length);
         GameObject selectedTowerPrefab = towerPrefabs[randomIndex];
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
+
+        isOnBuild = false; // 설치됐으면 다시 false로 바꿔서 버튼을 클릭해야 설치되게 함
 
         // 타워를 생성하고 이름과 태그를 설정
-        Vector3 spawnPosition = new Vector3(0f, spawnYPosition, 0f); // x는 0, y는 현재 spawnYPosition
-        GameObject newTower = Instantiate(selectedTowerPrefab, spawnPosition, Quaternion.identity);
+        GameObject newTower = Instantiate(selectedTowerPrefab, tileTransform.position, Quaternion.identity);
         string towerName = selectedTowerPrefab.name;
         newTower.name = towerName;
         newTower.tag = "T_L_1"; // 고정된 태그 "T_L_1"로 설정
 
         // 현재 타워를 업데이트하고 spawnYPosition 증가
         currentTower = newTower;
-        spawnYPosition += 1f; // 다음 타워를 위해 y 좌표를 1 증가 - 여기서 타워 배치
+
+        gold.CurrentGold -= 20;  // 타워 20원
+        Destroy(followTowerImage);
+        StopCoroutine("OnTowerCancleSystem");
     }
-    private void HandleClick()
+
+    private IEnumerator OnTowerCancleSystem()
+    {
+        while(true)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+            {
+                isOnBuild = false;
+                // 마우스 따라다니는 이미지도 삭제
+                Destroy(followTowerImage);
+                break;
+            }
+
+            yield return null;
+        }
+    }
+    public void HandleClick()
     {
         // 마우스 클릭 좌표를 월드 좌표로 변환
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -65,7 +139,7 @@ public class CreatRandomTower : MonoBehaviour
     }
 
 
-    private void MergeTowers()
+    public void MergeTowers()
     {
         // 클릭된 타워가 유효한지 확인
         if (clickedTower != null)
@@ -119,8 +193,18 @@ public class CreatRandomTower : MonoBehaviour
             // 클릭된 타워 초기화
             clickedTower = null;
         }
+    }
+    public bool Upgrade()
+    {
+        if (playerGold.CurrentGold < 10)
+        {
+            return false;
+        }
 
+        level++;
+        spriteRenderer.sprite = towerTemplate.weapon[level].sprite;
+        playerGold.CurrentGold -= 10;
 
-
+        return true;
     }
 }
