@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class DetectTowertoEnemy : MonoBehaviour
 {
+    [SerializeField]
     public float detectionRadius = 5f; // 탐지 범위
     public LayerMask enemyLayer; // 탐지할 적의 레이어
     public float rotateSpeed = 2f; // 회전 속도 추가
     private GameObject detectedEnemy; // 탐지한 적 오브젝트
     private Quaternion initialRotation; // 초기 회전값
     private List<GameObject> detectedEnemies = new List<GameObject>();
+
+    // AttackRange 프로퍼티 제거
 
     private void Start()
     {
@@ -33,33 +36,34 @@ public class DetectTowertoEnemy : MonoBehaviour
 
         foreach (Collider2D collider in colliders)
         {
-            // 탐지된 오브젝트를 리스트에 추가하고, 필요한 로직을 수행합니다.
-            if (!detectedEnemies.Contains(collider.gameObject))
-            {
-                detectedEnemies.Add(collider.gameObject);
-            }
+            GameObject enemy = collider.gameObject;
 
             // 적과의 거리 계산
-            float distance = Vector2.Distance(transform.position, collider.transform.position);
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
 
             if (distance < closestDistance)
             {
                 // 더 가까운 적을 찾으면 업데이트
                 closestDistance = distance;
-                closestEnemy = collider.gameObject;
+                closestEnemy = enemy;
             }
         }
 
         // 가장 가까운 적이 있을 경우
         if (closestEnemy != null)
         {
-            // 탐지한 적을 바라보는 로직을 여기에 추가합니다.
-            Vector3 lookAtPosition = new Vector3(closestEnemy.transform.position.x, transform.position.y, closestEnemy.transform.position.z);
-            Vector3 direction = lookAtPosition - transform.position;
+            // 타워의 위치에서 적의 위치로 향하는 방향 벡터 계산
+            Vector3 direction = closestEnemy.transform.position - transform.position;
+
+            // 방향 벡터를 기반으로 각도 계산 (Mathf.Atan2 사용)
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
+            // 로그로 각도와 적의 유무 확인
+            Debug.Log("각도: " + angle);
+            Debug.Log("적을 찾음");
+
             // 타워가 정확히 적을 바라보게 하려면 angle을 90도 더해줍니다.
-            angle += 90f;
+            angle += 270f;
 
             Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
             Quaternion rotation = Quaternion.Slerp(transform.rotation, angleAxis, rotateSpeed * Time.deltaTime);
@@ -67,9 +71,11 @@ public class DetectTowertoEnemy : MonoBehaviour
         }
         else
         {
+            // 적을 찾지 못한 경우 로그 출력
+            Debug.Log("적을 찾지 못함");
+
             // 탐지 범위 내에 적이 없으면 초기 회전값으로 회전합니다.
             transform.rotation = initialRotation;
         }
     }
-
 }
