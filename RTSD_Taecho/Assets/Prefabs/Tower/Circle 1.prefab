@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerTemplate: {fileID: 11400000, guid: 53a300b891dc559448734efcd996f2fe, type: 2}
-  firePoint: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  firePoint: {fileID: 5192540572620205155}
+  bulletPrefab: {fileID: 5892825573089624530, guid: 84b9196b7610b26408bea9a24f24ace8, type: 3}
   fireRate: 2
   damage: 10
