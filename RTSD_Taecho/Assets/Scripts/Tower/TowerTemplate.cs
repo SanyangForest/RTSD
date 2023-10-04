@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class TowerTemplate : ScriptableObject
 {
-    public GameObject towerPrefab;      
+    public GameObject towerPrefab;
+    public GameObject followImage;
     public Weapon[] weapon;             
 
     [System.Serializable]
