@@ -23,6 +23,8 @@ public class EnemyHp : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
+
         // 현재 적의 상태가 사망 상태이면 아래 코드를 실행 하지 않는다.
         if (isDie == true) return;
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);

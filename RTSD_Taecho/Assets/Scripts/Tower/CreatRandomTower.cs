@@ -138,7 +138,7 @@ public class CreatRandomTower : MonoBehaviour
     }
 
 
-    private void MergeTowers()
+    public void MergeTowers()
     {
         // 클릭된 타워가 유효한지 확인
         if (clickedTower != null)
@@ -195,14 +195,14 @@ public class CreatRandomTower : MonoBehaviour
     }
     public bool Upgrade()
     {
-        if (playerGold.CurrentGold < towerTemplate.weapon[level + 1].cost)
+        if (playerGold.CurrentGold < 10)
         {
             return false;
         }
 
         level++;
         spriteRenderer.sprite = towerTemplate.weapon[level].sprite;
-        playerGold.CurrentGold -= towerTemplate.weapon[level].cost;
+        playerGold.CurrentGold -= 10;
 
         return true;
     }

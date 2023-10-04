@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmClip: {fileID: 8300000, guid: a68c8daa1ae92704aa48b964af615ab1, type: 3}
-  bgmVolume: 0.1
+  bgmVolume: 0.2
   sfxClips:
   - {fileID: 8300000, guid: 291608b8d286e2a4580ff36324455ce2, type: 3}
   - {fileID: 8300000, guid: 0bddcb411d826e14bb26d40ae45d8e22, type: 3}
@@ -2257,7 +2257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1092290530}
         m_TargetAssemblyTypeName: CreatRandomTower, Assembly-CSharp
-        m_MethodName: ReadyToSpawnTower
+        m_MethodName: MergeTowers
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6470,6 +6470,7 @@ MonoBehaviour:
   - {fileID: 7647817952842743476, guid: 1a070e441e5a46c43a96fa91a5dc9159, type: 3}
   - {fileID: 7647817952842743476, guid: c8ffb7205c2e50848a66f0ea8bc62bd0, type: 3}
   - {fileID: 7647817952842743476, guid: 76caa79559b8690498649075cc636f00, type: 3}
+  systemTextViewer: {fileID: 0}
   gold: {fileID: 810619541}
   towerTemplate: {fileID: 11400000, guid: 53a300b891dc559448734efcd996f2fe, type: 2}
 --- !u!1001 &1107648514
@@ -7617,9 +7618,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1092290530}
-        m_TargetAssemblyTypeName: CreatRandomTower, Assembly-CSharp
-        m_MethodName: ReadyToSpawnTower
+      - m_Target: {fileID: 1676560955}
+        m_TargetAssemblyTypeName: UpgradeManager, Assembly-CSharp
+        m_MethodName: OnClickEventTowerUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8848,6 +8849,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6517213697133885730, guid: 6b89f4fc3fbede54c94a02a31abb7606, type: 3}
   m_PrefabInstance: {fileID: 1667056645}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1676560954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1676560956}
+  - component: {fileID: 1676560955}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1676560955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676560954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90795c04c14c5144b80cb4498142fb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  systemTextViewer: {fileID: 0}
+  towerSpawner: {fileID: 1092290530}
+--- !u!4 &1676560956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676560954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.49464583, y: -0.45726115, z: 0.08641237}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1682863425
 PrefabInstance:
   m_ObjectHideFlags: 0

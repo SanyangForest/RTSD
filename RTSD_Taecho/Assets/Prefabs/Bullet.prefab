@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &-4128378976203910584
 Rigidbody2D:
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5892825573089624530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfda26c823b38ec4d9c6e68739ec479f, type: 3}
+  m_Script: {fileID: 11500000, guid: 04afe38e4750c7044939a05ad10e3490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
