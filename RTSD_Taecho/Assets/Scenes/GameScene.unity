@@ -6036,7 +6036,7 @@ MonoBehaviour:
   - {fileID: 7647817952842743476, guid: c8ffb7205c2e50848a66f0ea8bc62bd0, type: 3}
   - {fileID: 7647817952842743476, guid: 76caa79559b8690498649075cc636f00, type: 3}
   gold: {fileID: 810619541}
-  towerTemplate: {fileID: 0}
+  towerTemplate: {fileID: 11400000, guid: 53a300b891dc559448734efcd996f2fe, type: 2}
 --- !u!1001 &1107648514
 PrefabInstance:
   m_ObjectHideFlags: 0

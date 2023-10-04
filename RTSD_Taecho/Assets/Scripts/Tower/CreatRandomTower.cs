@@ -7,21 +7,20 @@ public class CreatRandomTower : MonoBehaviour
 {
     public GameObject[] towerPrefabs; // 다양한 타워 프리팹을 저장할 배열
     private GameObject currentTower; // 현재 생성된 타워를 저장할 변수
-    private float spawnYPosition = 0f; // 타워의 초기 y 좌표
     private GameObject clickedTower; // 클릭된 타워를 기억하기 위한 변수
-
 
     [SerializeField] PlayerGold gold;
     [SerializeField] TowerTemplate towerTemplate;
 
     private bool isOnBuild = false;
+    private GameObject followTowerImage = null;
 
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            
+            ReadyToSpawnTower();
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
@@ -35,15 +34,25 @@ public class CreatRandomTower : MonoBehaviour
 
     public void ReadyToSpawnTower()
     {
-        
+        if (isOnBuild == true)  // 버튼을 중복으로 누르지 못하게 막는 장치
+        {
+            return;
+        }
+
         if (20 > gold.CurrentGold) // 굳이 towerTemplate.weapon[0].cost 안써도 됨. 어차피 20G 고정임
         {
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
             Debug.Log("돈 부족함");
             return;
         }
+        Debug.Log("건설 가능");
         isOnBuild = true;
-        
+
+        // 마우스 따라다니는 이미지 생성
+        followTowerImage = Instantiate(towerTemplate.followImage);
+
+        // 타워 건설 취소 코루틴 시작
+        StartCoroutine("OnTowerCancleSystem");
     }
 
     public void SpawnTower(Transform tileTransform)
@@ -52,11 +61,13 @@ public class CreatRandomTower : MonoBehaviour
 
         if(isOnBuild == false) // 타워 건설 버튼을 누를 때만 건설 가능
         {
+            Debug.Log("타워 건설 버튼을 눌러주십시오");
             return;
         }
 
         if(check.IsBuildTower == true)  // 중복 체크
         {
+            Debug.Log("이미 타워가 설치된 타일");
             return;
         }
 
@@ -78,6 +89,24 @@ public class CreatRandomTower : MonoBehaviour
         currentTower = newTower;
 
         gold.CurrentGold -= 20;  // 타워 20원
+        Destroy(followTowerImage);
+        StopCoroutine("OnTowerCancleSystem");
+    }
+
+    private IEnumerator OnTowerCancleSystem()
+    {
+        while(true)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+            {
+                isOnBuild = false;
+                // 마우스 따라다니는 이미지도 삭제
+                Destroy(followTowerImage);
+                break;
+            }
+
+            yield return null;
+        }
     }
     private void HandleClick()
     {
