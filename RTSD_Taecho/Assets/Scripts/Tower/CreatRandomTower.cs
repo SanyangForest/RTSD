@@ -7,10 +7,18 @@ public class CreatRandomTower : MonoBehaviour
 {
     public GameObject[] towerPrefabs; // 다양한 타워 프리팹을 저장할 배열
     private GameObject currentTower; // 현재 생성된 타워를 저장할 변수
+    //private float spawnYPosition = 0f; // 타워의 초기 y 좌표
     private GameObject clickedTower; // 클릭된 타워를 기억하기 위한 변수
 
+
+    [SerializeField]
+    private SystemTextViewer systemTextViewer;
     [SerializeField] PlayerGold gold;
     [SerializeField] TowerTemplate towerTemplate;
+
+    private int level = 0;
+    private PlayerGold playerGold;
+    private SpriteRenderer spriteRenderer;
 
     private bool isOnBuild = false;
     private GameObject followTowerImage = null;
@@ -42,7 +50,8 @@ public class CreatRandomTower : MonoBehaviour
         if (20 > gold.CurrentGold) // 굳이 towerTemplate.weapon[0].cost 안써도 됨. 어차피 20G 고정임
         {
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
-            Debug.Log("돈 부족함");
+            systemTextViewer.PrintText(SystemType.Money);
+            Debug.Log("돈 부족");
             return;
         }
         Debug.Log("건설 가능");
@@ -108,7 +117,7 @@ public class CreatRandomTower : MonoBehaviour
             yield return null;
         }
     }
-    private void HandleClick()
+    public void HandleClick()
     {
         // 마우스 클릭 좌표를 월드 좌표로 변환
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -183,8 +192,18 @@ public class CreatRandomTower : MonoBehaviour
             // 클릭된 타워 초기화
             clickedTower = null;
         }
+    }
+    public bool Upgrade()
+    {
+        if (playerGold.CurrentGold < towerTemplate.weapon[level + 1].cost)
+        {
+            return false;
+        }
 
+        level++;
+        spriteRenderer.sprite = towerTemplate.weapon[level].sprite;
+        playerGold.CurrentGold -= towerTemplate.weapon[level].cost;
 
-
+        return true;
     }
 }
