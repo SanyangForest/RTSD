@@ -17,6 +17,7 @@ public class TextTMPViewer : MonoBehaviour
     private void Update()
     {
         textplayerHp.text = playerHp.CurrentHp + "/" + playerHp.MaxHp;
+        textplayerGold.text = $"{playerGold.CurrentGold}";
         
     }
 }
