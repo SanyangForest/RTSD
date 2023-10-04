@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
     void HitTarget()
     {
         // 대상에게 피해를 입히고 총알 파괴
-        target.GetComponent<Enemy>().TakeDamage(damage);
+        target.GetComponent<EnemyHp>().TakeDamage(damage);
         Destroy(gameObject);
     }
 
@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             // 대상이 Enemy 태그를 가진 오브젝트라면 해당 오브젝트의 Enemy 스크립트를 가져옴
-            Enemy enemy = collision.GetComponent<Enemy>();
+            EnemyHp enemy = collision.GetComponent<EnemyHp>();
 
             // Enemy 스크립트가 존재하면 피해를 입힘
             if (enemy != null)
@@ -60,6 +60,5 @@ public class Bullet : MonoBehaviour
             // 총알을 삭제
             Destroy(gameObject);
         }
-
     }
 }
