@@ -11,10 +11,6 @@ public class Tower : MonoBehaviour
     public float fireRate = 2f; // 발사 간격 (초 단위)
     public int damage = 10; // 총알 데미지
 
-    private int level = 0;
-    private PlayerGold playerGold;
-    private SpriteRenderer spriteRenderer;
-
     private void Start()
     {
         // 코루틴을 사용하여 총알 자동 발사
@@ -28,6 +24,13 @@ public class Tower : MonoBehaviour
             // 공격 범위에 따른 설정 등을 수행
             // 예: 공격 범위를 Debug.Log로 출력
             Debug.Log("Tower's Attack Range: " + attackRange);
+            string towerTag = gameObject.tag;
+            int towerLevel;
+            if (int.TryParse(towerTag.Replace("T_L_", ""), out towerLevel))
+            {
+                // 타워 레벨에 따라 데미지 증가
+                damage += towerLevel * 20;
+            }
         }
     }
 
@@ -107,19 +110,5 @@ public class Tower : MonoBehaviour
         }
 
         return closestEnemy;
-    }
-
-    public bool Upgrade()
-    {
-        if (playerGold.CurrentGold < towerTemplate.weapon[level + 1].cost)
-        {
-            return false;
-        }
-
-        level++;
-        spriteRenderer.sprite = towerTemplate.weapon[level].sprite;
-        playerGold.CurrentGold -= towerTemplate.weapon[level].cost;
-
-        return true;
     }
 }
