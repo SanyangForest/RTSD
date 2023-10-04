@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CreatRandomTower : MonoBehaviour
 {
@@ -10,11 +11,17 @@ public class CreatRandomTower : MonoBehaviour
     private GameObject clickedTower; // 클릭된 타워를 기억하기 위한 변수
 
 
+    [SerializeField] PlayerGold gold;
+    [SerializeField] TowerTemplate towerTemplate;
+
+    private bool isOnBuild = false;
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SpawnTower();
+            
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
@@ -26,23 +33,51 @@ public class CreatRandomTower : MonoBehaviour
         }
     }
 
-
-    private void SpawnTower()
+    public void ReadyToSpawnTower()
     {
+        
+        if (20 > gold.CurrentGold) // 굳이 towerTemplate.weapon[0].cost 안써도 됨. 어차피 20G 고정임
+        {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
+            Debug.Log("돈 부족");
+            return;
+        }
+        isOnBuild = true;
+        
+    }
+
+    public void SpawnTower(Transform tileTransform)
+    {
+        CheckDuplication check = tileTransform.GetComponent<CheckDuplication>();
+
+        if(isOnBuild == false) // 타워 건설 버튼을 누를 때만 건설 가능
+        {
+            return;
+        }
+
+        if(check.IsBuildTower == true)  // 중복 체크
+        {
+            return;
+        }
+
+        check.IsBuildTower = true;
+
         // 랜덤한 타워를 생성
         int randomIndex = Random.Range(0, towerPrefabs.Length);
         GameObject selectedTowerPrefab = towerPrefabs[randomIndex];
 
+        isOnBuild = false; // 설치됐으면 다시 false로 바꿔서 버튼을 클릭해야 설치되게 함
+
         // 타워를 생성하고 이름과 태그를 설정
-        Vector3 spawnPosition = new Vector3(0f, spawnYPosition, 0f); // x는 0, y는 현재 spawnYPosition
-        GameObject newTower = Instantiate(selectedTowerPrefab, spawnPosition, Quaternion.identity);
+        GameObject newTower = Instantiate(selectedTowerPrefab, tileTransform.position, Quaternion.identity);
         string towerName = selectedTowerPrefab.name;
         newTower.name = towerName;
         newTower.tag = "T_L_1"; // 고정된 태그 "T_L_1"로 설정
 
         // 현재 타워를 업데이트하고 spawnYPosition 증가
         currentTower = newTower;
-        spawnYPosition += 1f; // 다음 타워를 위해 y 좌표를 1 증가 - 여기서 타워 배치
+
+        gold.CurrentGold -= 20;  // 타워 20원
     }
     private void HandleClick()
     {
