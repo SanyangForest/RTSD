@@ -24,6 +24,13 @@ public class Tower : MonoBehaviour
             // 공격 범위에 따른 설정 등을 수행
             // 예: 공격 범위를 Debug.Log로 출력
             Debug.Log("Tower's Attack Range: " + attackRange);
+            string towerTag = gameObject.tag;
+            int towerLevel;
+            if (int.TryParse(towerTag.Replace("T_L_", ""), out towerLevel))
+            {
+                // 타워 레벨에 따라 데미지 증가
+                damage += towerLevel * 20;
+            }
         }
     }
 
